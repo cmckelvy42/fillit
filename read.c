@@ -6,7 +6,7 @@
 /*   By: cmckelvy <cmckelvy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:04:48 by cmckelvy          #+#    #+#             */
-/*   Updated: 2019/02/26 14:30:03 by cmckelvy         ###   ########.fr       */
+/*   Updated: 2019/02/26 15:10:59 by cmckelvy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,22 @@ size_t	tetsize(int fd)
 	return (i);
 }
 
-/*void	pieces(char *str, size_t size)
+/*void	verify(char **tets, size_t size)
+{
+	int		i;
+	t_etris	*new;
+	t_grid	*grid;
+
+	map
+}*/
+
+void	pieces(char *str, size_t size)
 {
 	char	**tets;
-	int		i;
-	int		j;
+	size_t	i;
+	size_t	k;
 	int		f;
-	int		k;
+	int		j;
 
 	if (!(tets = (char**)malloc(sizeof(char*) * ((size / 20) + 1))))
 	{
@@ -47,8 +56,17 @@ size_t	tetsize(int fd)
 		return ;
 	}
 	while (j < i)
-
-}*/
+	{
+		tets[j] = ft_strnew(21);
+		tets[j] = ft_strncpy(tets[j], &str[f], 20);
+		tets[j][21] = '\0';
+		j++;
+		f += 21;
+	}
+	tets[j] = NULL;
+	ft_putstr("So far so good");
+	//verify(tets, i);
+}
 
 void	tetread(char *filename)
 {
@@ -64,9 +82,9 @@ void	tetread(char *filename)
 		return ;
 	}
 	tsize = tetsize(fd);
-	tfile = ft_strnew(tsize);
+	tfile = (char*)malloc((tsize + 1));
 	fd = open(filename, O_RDONLY);
 	read(fd, tfile, tsize);
-	//pieces(tfile, tsize);
+	pieces(tfile, tsize);
 	free(tfile);
 }
