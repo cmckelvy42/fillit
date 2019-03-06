@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_itoa_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmckelvy <cmckelvy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/16 15:16:22 by cmckelvy          #+#    #+#             */
-/*   Updated: 2019/02/19 16:07:56 by cmckelvy         ###   ########.fr       */
+/*   Created: 2019/02/27 15:16:12 by cmckelvy          #+#    #+#             */
+/*   Updated: 2019/03/04 15:23:14 by cmckelvy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_itoa(int n)
+char	*ft_itoa_base(int n, int base)
 {
 	char	*result;
 	int		sign;
@@ -21,7 +21,7 @@ char	*ft_itoa(int n)
 	sign = 1;
 	if (n < 0)
 		sign = 2;
-	len = ft_digits(n) + (sign - 1);
+	len = ft_digits_base(n, base) + (sign - 1);
 	if (sign == 2)
 		sign -= 3;
 	if (!(result = (char*)ft_strnew(len + 1)))
@@ -31,8 +31,8 @@ char	*ft_itoa(int n)
 	len--;
 	while (n)
 	{
-		result[len] = (n % 10) * sign + '0';
-		n /= 10;
+		result[len] = (n % base) * sign + (n % base > 9 ? 'A' - 10 : '0');
+		n /= base;
 		len--;
 	}
 	if (sign == -1)

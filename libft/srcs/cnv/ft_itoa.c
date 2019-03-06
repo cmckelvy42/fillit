@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd.c                                        :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmckelvy <cmckelvy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/16 18:51:10 by cmckelvy          #+#    #+#             */
-/*   Updated: 2019/02/16 18:52:40 by cmckelvy         ###   ########.fr       */
+/*   Created: 2019/02/16 15:16:22 by cmckelvy          #+#    #+#             */
+/*   Updated: 2019/03/04 15:24:27 by cmckelvy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd(t_list **alst, t_list *new)
+char	*ft_itoa(int n)
 {
-	new->next = (*alst);
-	(*alst) = new;
+	return (ft_itoa_base(n, 10));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmckelvy <cmckelvy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmckelvy <cmckelvy@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:04:48 by cmckelvy          #+#    #+#             */
-/*   Updated: 2019/02/26 15:10:59 by cmckelvy         ###   ########.fr       */
+/*   Updated: 2019/03/06 15:16:43 by cmckelvy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,13 @@ void	pieces(char *str, size_t size)
 		tets[j] = ft_strnew(21);
 		tets[j] = ft_strncpy(tets[j], &str[f], 20);
 		tets[j][21] = '\0';
+		ft_putstr(tets[j]);
 		j++;
+		ft_putchar('\n');
 		f += 21;
 	}
 	tets[j] = NULL;
-	ft_putstr("So far so good");
+	ft_putstr("So far so good\n");
 	//verify(tets, i);
 }
 
