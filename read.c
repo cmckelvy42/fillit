@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmckelvy <cmckelvy@student.42.us.org>      +#+  +:+       +#+        */
+/*   By: cmckelvy <cmckelvy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:04:48 by cmckelvy          #+#    #+#             */
-/*   Updated: 2019/03/06 15:45:49 by cmckelvy         ###   ########.fr       */
+/*   Updated: 2019/03/10 13:21:21 by cmckelvy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,33 @@ size_t	tetsize(int fd)
 	return (i);
 }
 
-/*void	verify(char **tets, size_t size)
+int		verify(char **tets, int j)
 {
 	int		i;
-	t_etris	*new;
-	t_grid	*grid;
+	int		squares;
+	int		connections;
 
-	map
-}*/
+	i = -1;
+	squares = 0;
+	connections = 0;
+	while (tets[j][++i])
+	{
+		if (FILLED(tets[j][i]) == 1)
+		{
+			squares++;
+			if ((i > 3) && FILLED(tets[j][i - 5]) == 1)
+				connections++;
+			if (FILLED(tets[j][i + 5]) == 1)
+				connections++;
+			if ((i > 0) && FILLED(tets[j][i - 1]) == 1)
+				connections++;
+			if (FILLED(tets[j][i + 1]) == 1)
+				connections++;
+		}
+	}
+	CHECK_BAD(squares != 4 && (connections != 8 || connections != 6));
+	return (1);
+}
 
 void	pieces(char *str, size_t size)
 {
@@ -60,14 +79,14 @@ void	pieces(char *str, size_t size)
 		tets[j] = ft_strnew(21);
 		tets[j] = ft_strncpy(tets[j], &str[f], 20);
 		tets[j][21] = '\0';
-		//ft_putstr(tets[j]);
+		if (verify(tets, j))
+		{
+			ft_putstr("So far so good");
+		}
 		j++;
-		//ft_putchar('\n');
 		f += 21;
 	}
 	tets[j] = NULL;
-	ft_putstr("So far so good\n");
-	//verify(tets, i);
 }
 
 void	tetread(char *filename)
