@@ -6,7 +6,7 @@
 /*   By: cmckelvy <cmckelvy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:04:48 by cmckelvy          #+#    #+#             */
-/*   Updated: 2019/03/10 13:21:21 by cmckelvy         ###   ########.fr       */
+/*   Updated: 2019/03/10 22:45:27 by cmckelvy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ size_t	tetsize(int fd)
 	i = 0;
 	while (read(fd, buf, 1))
 		i++;
-	close (fd);
+	close(fd);
 	return (i);
 }
 
@@ -35,6 +35,7 @@ int		verify(char **tets, int j)
 	connections = 0;
 	while (tets[j][++i])
 	{
+		CHECK_BAD(tets[j][i] != '#' && tets[j][i] != '.' && tets[j][i] != '\n');
 		if (FILLED(tets[j][i]) == 1)
 		{
 			squares++;
@@ -48,45 +49,47 @@ int		verify(char **tets, int j)
 				connections++;
 		}
 	}
-	CHECK_BAD(squares != 4 && (connections != 8 || connections != 6));
+	CHECK_BAD(squares != 4 || (connections != 8 && connections != 6));
 	return (1);
+}
+
+void	split_pieces(char **tets, char *str, int i)
+{
+	int f;
+	int j;
+
+	f = 0;
+	j = -1;
+	while (++j < i)
+	{
+		tets[j] = ft_strnew(21);
+		tets[j] = ft_strncpy(tets[j], &str[f], 20);
+		tets[j][21] = '\0';
+		if (!verify(tets, j))
+		{
+			ft_putstr("Error");
+			return ;
+		}
+		f += 21;
+	}
+	tets[j] = NULL;
 }
 
 void	pieces(char *str, size_t size)
 {
 	char	**tets;
-	size_t	i;
-	size_t	k;
 	int		f;
 	int		j;
 
-	if (!(tets = (char**)malloc(sizeof(char*) * ((size / 20) + 1))))
-	{
-		ft_putstr("Error");
-		return ;
-	}
-	k = size % 20;
-	i = size / 20;
-	j = 0;
+	j = -1;
 	f = 0;
-	if (!(i == k + 1) || i > 26)
+	if (!(tets = (char**)malloc(sizeof(char*) * ((size / 20) + 1))) ||
+		!((size / 20) == (size % 20) + 1) || (size / 20) > 26)
 	{
 		ft_putstr("Error");
 		return ;
 	}
-	while (j < i)
-	{
-		tets[j] = ft_strnew(21);
-		tets[j] = ft_strncpy(tets[j], &str[f], 20);
-		tets[j][21] = '\0';
-		if (verify(tets, j))
-		{
-			ft_putstr("So far so good");
-		}
-		j++;
-		f += 21;
-	}
-	tets[j] = NULL;
+	split_pieces(tets, str, size / 20);
 }
 
 void	tetread(char *filename)
@@ -94,7 +97,6 @@ void	tetread(char *filename)
 	int			fd;
 	char		*tfile;
 	size_t		tsize;
-
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)

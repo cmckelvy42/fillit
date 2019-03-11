@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmckelvy <cmckelvy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/24 13:59:29 by cmckelvy          #+#    #+#             */
-/*   Updated: 2019/03/10 22:50:40 by cmckelvy         ###   ########.fr       */
+/*   Created: 2019/02/18 12:56:29 by cmckelvy          #+#    #+#             */
+/*   Updated: 2019/03/04 14:33:24 by cmckelvy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# define BUFF_SIZE 68
+# define ERROR_CHECK(x) if (x) return (-1)
+# define BREAK_CHECK(x) if (x) break
 
-int		main(int argc, char *argv[])
-{
-	int i = 0;
+# include <stdio.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 
-	if (argc != 2)
-	{
-		ft_putstr("usage: fillit <file>\n");
-		return (0);
-	}
-	tetread(argv[1]);
-	return (0);
-}
+int		get_next_line(const int fd, char **line);
+
+#endif

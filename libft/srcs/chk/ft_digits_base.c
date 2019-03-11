@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_digits_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmckelvy <cmckelvy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/24 13:59:29 by cmckelvy          #+#    #+#             */
-/*   Updated: 2019/03/10 22:50:40 by cmckelvy         ###   ########.fr       */
+/*   Created: 2019/02/27 15:15:00 by cmckelvy          #+#    #+#             */
+/*   Updated: 2019/03/04 15:21:48 by cmckelvy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-int		main(int argc, char *argv[])
+int		ft_digits_base(int n, int base)
 {
-	int i = 0;
+	int digits;
 
-	if (argc != 2)
+	if (!n)
+		return (1);
+	digits = 0;
+	while (n)
 	{
-		ft_putstr("usage: fillit <file>\n");
-		return (0);
+		n /= base;
+		digits++;
 	}
-	tetread(argv[1]);
-	return (0);
+	return (digits);
 }

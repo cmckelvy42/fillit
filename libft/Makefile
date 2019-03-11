@@ -1,134 +1,82 @@
 NAME = libft.a
 
-SRC = ft_atoi.c \
-ft_isspace.c \
-ft_lstsort.c \
-ft_memset.c \
-ft_putstr_fd.c \
-ft_strequ.c \
-ft_strncat.c \
-ft_strstr.c \
-ft_bzero.c \
-ft_itoa.c \
-ft_memalloc.c \
-ft_putchar.c \
-ft_strcat.c \
-ft_striter.c \
-ft_strncmp.c \
-ft_strsub.c \
-ft_digits.c \
-ft_lstadd.c \
-ft_memccpy.c \
-ft_putchar_fd.c \
-ft_strchr.c \
-ft_striteri.c \
-ft_strncpy.c \
-ft_strtrim.c \
-ft_isalnum.c \
-ft_lstdel.c \
-ft_memchr.c \
-ft_putendl.c \
-ft_strclr.c \
-ft_strjoin.c \
-ft_strnequ.c \
-ft_tolower.c \
-ft_isalpha.c \
-ft_lstdelone.c \
-ft_memcmp.c \
-ft_putendl_fd.c \
-ft_strcmp.c \
-ft_strlcat.c \
-ft_strnew.c \
-ft_toupper.c \
-ft_isascii.c \
-ft_lstiter.c \
-ft_memcpy.c \
-ft_putnbr.c \
-ft_strcpy.c \
-ft_strlen.c \
-ft_strnstr.c \
-ft_wordcount.c \
-ft_isdigit.c \
-ft_lstmap.c \
-ft_memdel.c \
-ft_putnbr_fd.c \
-ft_strdel.c \
-ft_strmap.c \
-ft_strrchr.c \
-ft_wordlen.c \
-ft_isprint.c \
-ft_lstnew.c \
-ft_memmove.c \
-ft_putstr.c \
-ft_strdup.c \
-ft_strmapi.c \
-ft_strsplit.c
+CHK = srcs/chk/ft_digits.c \
+	  srcs/chk/ft_digits_base.c \
+	  srcs/chk/ft_isalnum.c \
+	  srcs/chk/ft_isalpha.c \
+	  srcs/chk/ft_isascii.c \
+	  srcs/chk/ft_isdigit.c \
+	  srcs/chk/ft_isprint.c \
+	  srcs/chk/ft_isspace.c \
+	  srcs/chk/ft_wordcount.c \
+	  srcs/chk/ft_wordlen.c
 
-OBJ = ft_atoi.o \
-ft_isspace.o \
-ft_lstsort.o \
-ft_memset.o \
-ft_putstr_fd.o \
-ft_strequ.o \
-ft_strncat.o \
-ft_strstr.o \
-ft_bzero.o \
-ft_itoa.o \
-ft_memalloc.o \
-ft_putchar.o \
-ft_strcat.o \
-ft_striter.o \
-ft_strncmp.o \
-ft_strsub.o \
-ft_digits.o \
-ft_lstadd.o \
-ft_memccpy.o \
-ft_putchar_fd.o \
-ft_strchr.o \
-ft_striteri.o \
-ft_strncpy.o \
-ft_strtrim.o \
-ft_isalnum.o \
-ft_lstdel.o \
-ft_memchr.o \
-ft_putendl.o \
-ft_strclr.o \
-ft_strjoin.o \
-ft_strnequ.o \
-ft_tolower.o \
-ft_isalpha.o \
-ft_lstdelone.o \
-ft_memcmp.o \
-ft_putendl_fd.o \
-ft_strcmp.o \
-ft_strlcat.o \
-ft_strnew.o \
-ft_toupper.o \
-ft_isascii.o \
-ft_lstiter.o \
-ft_memcpy.o \
-ft_putnbr.o \
-ft_strcpy.o \
-ft_strlen.o \
-ft_strnstr.o \
-ft_wordcount.o \
-ft_isdigit.o \
-ft_lstmap.o \
-ft_memdel.o \
-ft_putnbr_fd.o \
-ft_strdel.o \
-ft_strmap.o \
-ft_strrchr.o \
-ft_wordlen.o \
-ft_isprint.o \
-ft_lstnew.o \
-ft_memmove.o \
-ft_putstr.o \
-ft_strdup.o \
-ft_strmapi.o \
-ft_strsplit.o
+CNV = srcs/cnv/ft_atoi.c \
+	  srcs/cnv/ft_itoa.c \
+	  srcs/cnv/ft_itoa_base.c \
+	  srcs/cnv/ft_tolower.c \
+	  srcs/cnv/ft_toupper.c
 
-INC = includes
+MEM = srcs/mem/ft_bzero.c \
+	  srcs/mem/ft_memalloc.c \
+	  srcs/mem/ft_memccpy.c \
+	  srcs/mem/ft_memchr.c \
+	  srcs/mem/ft_memcmp.c \
+	  srcs/mem/ft_memcpy.c \
+	  srcs/mem/ft_memdel.c \
+	  srcs/mem/ft_memmove.c \
+	  srcs/mem/ft_memset.c
+
+STR = srcs/str/ft_strcat.c \
+	  srcs/str/ft_strclr.c \
+	  srcs/str/ft_strcpy.c \
+	  srcs/str/ft_strdup.c \
+	  srcs/str/ft_striter.c \
+	  srcs/str/ft_strjoin.c \
+	  srcs/str/ft_strlen.c \
+	  srcs/str/ft_strmapi.c \
+	  srcs/str/ft_strncmp.c \
+	  srcs/str/ft_strnequ.c \
+	  srcs/str/ft_strnstr.c \
+	  srcs/str/ft_strsplit.c \
+	  srcs/str/ft_strsub.c \
+	  srcs/str/ft_strchr.c \
+	  srcs/str/ft_strcmp.c \
+	  srcs/str/ft_strdel.c \
+	  srcs/str/ft_strequ.c \
+	  srcs/str/ft_striteri.c \
+	  srcs/str/ft_strlcat.c \
+	  srcs/str/ft_strmap.c \
+	  srcs/str/ft_strncat.c \
+	  srcs/str/ft_strncpy.c \
+	  srcs/str/ft_strnew.c \
+	  srcs/str/ft_strrchr.c \
+	  srcs/str/ft_strstr.c \
+	  srcs/str/ft_strccpy.c \
+	  srcs/str/ft_strtrim.c
+
+PUT = srcs/put/ft_putchar.c \
+	  srcs/put/ft_putchar_fd.c \
+	  srcs/put/ft_putendl.c \
+	  srcs/put/ft_putendl_fd.c \
+	  srcs/put/ft_putnbr.c \
+	  srcs/put/ft_putnbr_fd.c \
+	  srcs/put/ft_putstr.c \
+	  srcs/put/ft_putstr_fd.c
+
+GET = srcs/get/get_next_line.c
+
+LST = srcs/lst/ft_lstadd.c \
+	  srcs/lst/ft_lstdel.c \
+	  srcs/lst/ft_lstdelone.c \
+	  srcs/lst/ft_lstiter.c \
+	  srcs/lst/ft_lstmap.c \
+	  srcs/lst/ft_lstnew.c \
+	  srcs/lst/ft_lstsort.c
+
+SRC = $(CHK) $(CNV) $(MEM) $(STR) $(PUT) $(GET) $(LST)
+INC = includes/
+OBJ = *.o
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
@@ -137,20 +85,20 @@ CFLAGS = -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME):
-	@echo "\033[32mmaking libft...\033[0m"
+	@echo -e "\033[92mmaking libft...\033[0m"
 	@$(CC) $(CFLAGS) -c $(SRC) -I $(INC)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
 
 .PHONY: clean
 clean:
-	@echo "\033[33mcleaning libft repository...\033[0m"
-	@/bin/rm -f $(OBJ)
+	@echo -e "\033[33mcleaning libft repository...\033[0m"
+	@rm -f $(OBJ)
 
 .PHONY: fclean
 fclean: clean
-	@echo "\033[33mremoving libft library file...\033[0m"
-	@/bin/rm -f $(NAME)
+	@echo -e "\033[31mremoving libft library file...\033[0m"
+	@rm -f $(NAME)
 
 .PHONY: re
 re: fclean all

@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstadd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmckelvy <cmckelvy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/24 13:59:29 by cmckelvy          #+#    #+#             */
-/*   Updated: 2019/03/10 22:50:40 by cmckelvy         ###   ########.fr       */
+/*   Created: 2019/02/16 18:51:10 by cmckelvy          #+#    #+#             */
+/*   Updated: 2019/03/04 15:34:39 by cmckelvy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "libft.h"
 
-int		main(int argc, char *argv[])
+void	ft_lstadd(t_list **alst, t_list *new)
 {
-	int i = 0;
-
-	if (argc != 2)
-	{
-		ft_putstr("usage: fillit <file>\n");
-		return (0);
-	}
-	tetread(argv[1]);
-	return (0);
+	new->next = (*alst);
+	(*alst) = new;
 }

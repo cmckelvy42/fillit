@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmckelvy <cmckelvy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/24 13:59:29 by cmckelvy          #+#    #+#             */
-/*   Updated: 2019/03/10 22:50:40 by cmckelvy         ###   ########.fr       */
+/*   Created: 2019/03/04 16:56:51 by cmckelvy          #+#    #+#             */
+/*   Updated: 2019/03/04 17:02:52 by cmckelvy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
-
-int		main(int argc, char *argv[])
+char		*ft_strccpy(char *dst, char *src, char c)
 {
-	int i = 0;
+	int i;
 
-	if (argc != 2)
+	i = 0;
+	while (src[i] && src[i] != c)
 	{
-		ft_putstr("usage: fillit <file>\n");
-		return (0);
+		dst[i] = src[i];
+		i++;
 	}
-	tetread(argv[1]);
-	return (0);
+	dst[i] = '\0';
+	return (dst);
 }
