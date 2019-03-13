@@ -1,28 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmckelvy <cmckelvy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/24 13:59:29 by cmckelvy          #+#    #+#             */
-/*   Updated: 2019/03/11 23:48:23 by cmckelvy         ###   ########.fr       */
+/*   Created: 2019/03/11 22:57:39 by cmckelvy          #+#    #+#             */
+/*   Updated: 2019/03/11 23:28:42 by cmckelvy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int		main(int argc, char *argv[])
+void	clean_tetstrings(char **tets)
 {
 	int i;
 
-	if (argc != 2)
+	i = -1;
+	while (tets[++i])
 	{
-		ft_putstr("usage: fillit <file>\n");
-		return (0);
+		free(tets[i]);
+		tets[i] = NULL;
 	}
-	tetread(argv[1]);
-	while (1)
-		i = 0;
-	return (0);
+	free(tets);
+	tets = NULL;
+}
+
+void	clean_tetsructs(t_etris **tets)
+{
+	int i;
+
+	i = -1;
+	while (tets[++i])
+	{
+		free(tets[i]);
+		tets[i] = NULL;
+	}
+	free(tets);
+	tets = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: cmckelvy <cmckelvy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 14:02:50 by cmckelvy          #+#    #+#             */
-/*   Updated: 2019/03/10 22:49:59 by cmckelvy         ###   ########.fr       */
+/*   Updated: 2019/03/13 13:08:31 by cmckelvy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,24 @@
 
 typedef struct		s_etris
 {
-	char			letter;
-	char			*piece;
-	int				x[4];
-	int				y[4];
-	struct s_etris	*next;
+	char	letter;
+	int		x[4];
+	int		y[4];
 }					t_etris;
+
+typedef struct		s_map
+{
+	size_t	size;
+	char	**map;
+}					t_map;
+
 
 void				tetread(char *filename);
 size_t				tetsize(int fd);
+int					verify(char **tets, int j);
+void				split_pieces(char **tets, char *str, int i);
+void				pieces(char *str, size_t size);
+void				assign_coords(char **tets, int numtets, int i);
+void				clean_tetstrings(char **tets);
+void				clean_tetsructs(t_etris **tets);
 #endif

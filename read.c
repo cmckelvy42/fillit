@@ -6,7 +6,7 @@
 /*   By: cmckelvy <cmckelvy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:04:48 by cmckelvy          #+#    #+#             */
-/*   Updated: 2019/03/10 22:45:27 by cmckelvy         ###   ########.fr       */
+/*   Updated: 2019/03/11 23:22:41 by cmckelvy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	split_pieces(char **tets, char *str, int i)
 		f += 21;
 	}
 	tets[j] = NULL;
+	assign_coords(tets, i, -1);
 }
 
 void	pieces(char *str, size_t size)
