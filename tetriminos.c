@@ -6,7 +6,7 @@
 /*   By: cmckelvy <cmckelvy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 21:18:26 by cmckelvy          #+#    #+#             */
-/*   Updated: 2019/03/11 23:45:01 by cmckelvy         ###   ########.fr       */
+/*   Updated: 2019/04/08 12:16:05 by cmckelvy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,8 @@ void	zerocoords(t_etris **tets)
 
 void	assign_coords(char **tets, int numtets, int i)
 {
-	t_etris **tmp;
+	t_etris	**tmp;
+	t_map	*board;
 
 	tmp = malloctets(numtets, -1, -1);
 	while (tets[++i])
@@ -103,5 +104,19 @@ void	assign_coords(char **tets, int numtets, int i)
 		printf("%d%d%d%d %d%d%d%d %c\n", tmp[i]->x[0], tmp[i]->x[1], tmp[i]->x[2], tmp[i]->x[3], tmp[i]->y[0], tmp[i]->y[1], tmp[i]->y[2], tmp[i]->y[3], tmp[i]->letter);
 	}
 	clean_tetstrings(tets);
-	clean_tetsructs(tmp);
+	printf("%d\n", minsquare(tmp));
+	board = init_board(numtets, minsquare(tmp));
+	solve_board(board, tmp, numtets);
+	clean_tetstructs(tmp);
+}
+
+int		is_placed(t_etris *tet)
+{
+	int i;
+
+	i = -1;
+	while (++i < 4)
+		if (tet->placedx[i] < 0 || tet->placedy[i] < 0)
+			return (0);
+	return (1);
 }
