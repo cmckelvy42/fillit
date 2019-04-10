@@ -6,7 +6,7 @@
 /*   By: cmckelvy <cmckelvy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:04:48 by cmckelvy          #+#    #+#             */
-/*   Updated: 2019/04/09 20:00:01 by cmckelvy         ###   ########.fr       */
+/*   Updated: 2019/04/10 11:38:44 by cmckelvy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,17 @@ int		verify(char **tets, int j)
 	int		i;
 	int		squares;
 	int		connections;
+	int		lines;
 
 	i = -1;
+	lines = 0;
 	squares = 0;
 	connections = 0;
 	while (tets[j][++i])
 	{
 		CHECK_BAD(tets[j][i] != '#' && tets[j][i] != '.' && tets[j][i] != '\n');
+		if (tets[j][i] == '\n')
+			lines++;
 		if (FILLED(tets[j][i]) == 1)
 		{
 			squares++;
@@ -62,7 +66,8 @@ int		verify(char **tets, int j)
 				connections++;
 		}
 	}
-	CHECK_BAD(squares != 4 || (connections != 8 && connections != 6));
+	CHECK_BAD(lines != 3 || i != 19 || squares != 4 ||
+		(connections != 8 && connections != 6));
 	return (1);
 }
 
@@ -75,12 +80,12 @@ void	split_pieces(char **tets, char *str, int i)
 	j = -1;
 	while (++j < i)
 	{
-		tets[j] = ft_strnew(21);
-		tets[j] = ft_strncpy(tets[j], &str[f], 20);
-		tets[j][21] = '\0';
+		tets[j] = ft_strnew(20);
+		tets[j] = ft_strncpy(tets[j], &str[f], 19);
+		tets[j][20] = '\0';
 		if (!verify(tets, j))
 		{
-			ft_putstr("Error1");
+			ft_putstr("error");
 			return ;
 		}
 		f += 21;
@@ -99,12 +104,8 @@ void	pieces(char *str, int numtets)
 	f = 0;
 	if (!(tets = (char**)malloc(sizeof(char*) * (numtets + 1)))
 			|| numtets > 26)
-	/*
-	need to replace the above if statement with a way to just check the number of newlines
-	between tets in the file to count instead
-	*/
 	{
-		ft_putstr("Error2");
+		ft_putstr("error");
 		return ;
 	}
 	split_pieces(tets, str, numtets);
@@ -124,7 +125,6 @@ void	tetread(char *filename)
 		return ;
 	}
 	tsize = tetsize(fd, &numtets);
-
 	tfile = ft_strnew(tsize);
 	fd = open(filename, O_RDONLY);
 	read(fd, tfile, tsize);

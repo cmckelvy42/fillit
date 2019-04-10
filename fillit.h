@@ -6,7 +6,7 @@
 /*   By: cmckelvy <cmckelvy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 14:02:50 by cmckelvy          #+#    #+#             */
-/*   Updated: 2019/04/09 20:09:05 by cmckelvy         ###   ########.fr       */
+/*   Updated: 2019/04/10 11:39:14 by cmckelvy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define FILLED(c)				((c - '#' == 0) ? 1 : -1)
 # define EMPTY(c)				((c - '.' == 0) ? 1 : 0)
 # define CHECK_BAD(x)			if (x) return (0)
-# define CHECK_BAD_VOID(x)			if (x) return
+# define CHECK_BAD_V(x)			if (x) return
 # define VALID_CHAR(c)			((c == '#' || c == '.' || c == '\n') ? 1 : 0)
 
 typedef struct		s_etris
@@ -40,7 +40,6 @@ typedef struct		s_map
 	size_t	size;
 	char	**map;
 }					t_map;
-
 
 void				tetread(char *filename);
 size_t				tetsize(int fd, int *numtets);

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmckelvy <cmckelvy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/11 21:18:26 by cmckelvy          #+#    #+#             */
-/*   Updated: 2019/04/09 20:07:05 by cmckelvy         ###   ########.fr       */
+/*   Created: 2019/04/10 11:36:02 by cmckelvy          #+#    #+#             */
+/*   Updated: 2019/04/10 11:36:09 by cmckelvy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ t_etris	**malloctets(int numtets, int i, int j)
 
 	if (!(tmp = (t_etris**)ft_memalloc(sizeof(t_etris*) * numtets + 1)))
 	{
-		ft_putstr("Error\n");
+		ft_putstr("error\n");
 		return (NULL);
 	}
 	while (++i < numtets)
 	{
 		if (!(tmp[i] = (t_etris*)ft_memalloc(sizeof(t_etris))))
 		{
-			ft_putstr("Error\n");
+			ft_putstr("error\n");
 			return (NULL);
 		}
 		tmp[i]->letter = 'A' + i;
@@ -101,10 +101,8 @@ void	assign_coords(char **tets, int numtets, int i)
 	{
 		assign_coords2(tets, tmp, i, -1);
 		zerocoords(tmp);
-		printf("%d%d%d%d %d%d%d%d %c\n", tmp[i]->x[0], tmp[i]->x[1], tmp[i]->x[2], tmp[i]->x[3], tmp[i]->y[0], tmp[i]->y[1], tmp[i]->y[2], tmp[i]->y[3], tmp[i]->letter);
 	}
 	clean_tetstrings(tets);
-	printf("%d\n", minsquare(tmp));
 	board = init_board(numtets, minsquare(tmp));
 	remove_all(tmp, board);
 	solve_board(board, tmp, numtets);
