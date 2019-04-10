@@ -6,18 +6,18 @@
 /*   By: cmckelvy <cmckelvy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 15:52:56 by cmckelvy          #+#    #+#             */
-/*   Updated: 2019/04/08 12:14:09 by cmckelvy         ###   ########.fr       */
+/*   Updated: 2019/04/09 11:13:05 by cmckelvy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-
+ 
 int        minsquare(t_etris **tets)
 {
     int i;
     int j;
     int ret;
-
+ 
     i = 0;
     j = 0;
     while (tets[i])
@@ -35,14 +35,14 @@ int        minsquare(t_etris **tets)
     }
     return (ret + 1);
 }
-
+ 
 t_map    *init_board(int numtets, int minsq)
 {
     size_t        square;
     t_map    *ret;
     int        x;
     int        y;
-
+ 
     square = (size_t)minsq;
     while (square * square < numtets * 4)
         square++;
@@ -62,11 +62,11 @@ t_map    *init_board(int numtets, int minsq)
     ret->map[y] = NULL;
     return (ret);
 }
-
+ 
 void        place_tet(t_etris *tet, t_map *board, int x, int y)
 {
     int i;
-
+ 
     i = 0;
     while (i < 4)
     {
@@ -76,11 +76,11 @@ void        place_tet(t_etris *tet, t_map *board, int x, int y)
         i++;
     }
 }
-
+ 
 int            can_place(t_etris *tet, t_map *board, int x, int y)
 {
     int i;
-
+ 
     i = 0;
     if(is_placed(tet))
         return (0);
@@ -94,52 +94,109 @@ int            can_place(t_etris *tet, t_map *board, int x, int y)
     }
     return (1);
 }
-
-void        solve_board(t_map *board, t_etris **tets, int numtets)
+ 
+void        grow_board(t_map *board)
 {
-    int     i;
-    int        j;
-    size_t    x;
-    size_t    y;
-
-    i = 0;
-    y = 0;
-    j = 0;
-    y = 0;
-    remove_all(tets);
-    while (i < numtets)
+    char    **tmp;
+    int     y;
+    int     x;
+ 
+    tmp = board->map;
+    board->size += 1;
+    board->map = NULL;
+    CHECK_BAD_VOID(!(board->map = (char**)ft_memalloc(sizeof(char*) * (board->size + 1))));
+    y = -1;
+    while (++y < board->size)
     {
-        if (!is_placed(tets[i]))
-            printf("tet %d is not placed\n", i);
-        i++;
+        x = -1;
+        CHECK_BAD_VOID(!(board->map[y] = (char*)ft_strnew(board->size)));
+        if (tmp[y])
+        {
+            ft_memcpy(board->map[y], tmp[y], ft_strlen(tmp[y]));
+            board->map[y][board->size - 1] = '.';
+        }
+        else
+            ft_memset(board->map[y], '.', board->size);
+        board->map[y][x] = '\0';
     }
-    i = 0;
-    while (is_placed(tets[i]))
-        i++;
-    while (tets[i])
-    {
-        y = 0;
-        while (y < board->size && !is_placed(tets[i]))
+    board->map[y] = NULL;
+}
+int      find_and_place(t_map *board, t_etris *tet)
+{
+    size_t y;
+    size_t x;
+
+    y = 0;
+        while (y < board->size && !is_placed(tet))
         {
             x = 0;
-            while (x < board->size && !is_placed(tets[i]))
+            while (x < board->size && !is_placed(tet))
             {
-                if (can_place(tets[i], board, x, y))
-                    place_tet(tets[i], board, (int)x, (int)y);
+                if (can_place(tet, board, x, y))
+                {
+                    place_tet(tet, board, (int)x, (int)y);
+                    return (1);
+                }
                 x++;
             }
             y++;
         }
-        i++;
-    }
-    while (board->map[j])
-    {
-        ft_putstr(board->map[j]);
-        ft_putchar('\n');
-        j++;
-    }
+    return (0);
 }
 
-/* need to figure out how to iterate tets while checking if they 
+void    adv_xy(size_t board_len, size_t *x, size_t *y)
+{
+	*y += (++*x / board_len);
+	*x %= board_len;
+}
+ 
+int        solve_board(t_map *board, t_etris **tets, int numtets)
+{
+    int     i;
+    int     j;
+    size_t  x;
+    size_t  y;
+ 
+    i = 0;
+    x = 0;
+    j = 0;
+    y = 0;
+    while (is_placed(tets[i]))
+        i++;
+    if (!find_and_place(board, tets[i]))
+        return (0);
+    if (i == numtets - 1)
+    {
+        printf("solved\n");
+        while (board->map[j])
+        {
+            ft_putstr(board->map[j]);
+            ft_putchar('\n');
+            j++;
+        }
+        return (1);
+    }
+    while (!solve_board(board, tets, numtets))
+    {
+        remove_tet(tets[i], board);
+        adv_xy(board->size, &x, &y);
+        while (!can_place(tets[i], board, x, y))
+        {
+            adv_xy(board->size, &x, &y);
+            if (y > board->size)
+            {
+                CHECK_BAD(i != 0);
+                x = 0;
+                y = 0;
+                i = 0;
+                grow_board(board);
+            }
+        }
+        place_tet(tets[i], board, (int)x, (int)y);
+    }
+    return (1);
+}
+ 
+/* need to figure out how to iterate tets while checking if they
 can be placed on coords
 */

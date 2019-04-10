@@ -6,7 +6,7 @@
 /*   By: cmckelvy <cmckelvy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:04:48 by cmckelvy          #+#    #+#             */
-/*   Updated: 2019/04/03 16:09:39 by cmckelvy         ###   ########.fr       */
+/*   Updated: 2019/04/09 17:44:10 by cmckelvy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 size_t	tetsize(int fd)
 {
 	size_t	i;
-	char	buf[1];
+	char	buf;
 
 	i = 0;
 	while (read(fd, buf, 1))
@@ -67,7 +67,7 @@ void	split_pieces(char **tets, char *str, int i)
 		tets[j][21] = '\0';
 		if (!verify(tets, j))
 		{
-			ft_putstr("Error");
+			ft_putstr("Error1");
 			return ;
 		}
 		f += 21;
@@ -84,10 +84,14 @@ void	pieces(char *str, size_t size)
 
 	j = -1;
 	f = 0;
-	if (!(tets = (char**)malloc(sizeof(char*) * ((size / 20) + 1))) ||
-		!((size / 20) == (size % 20) + 1) || (size / 20) > 26)
+	if (!(tets = (char**)malloc(sizeof(char*) * ((size / 20) + 1))) 
+			|| (size / 20) > 26)
+	/*
+	need to replace the above if statement with a way to just check the number of newlines
+	between tets in the file to count instead
+	*/
 	{
-		ft_putstr("Error");
+		ft_putstr("Error2");
 		return ;
 	}
 	split_pieces(tets, str, size / 20);

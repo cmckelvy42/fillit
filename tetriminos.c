@@ -6,7 +6,7 @@
 /*   By: cmckelvy <cmckelvy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 21:18:26 by cmckelvy          #+#    #+#             */
-/*   Updated: 2019/04/08 12:16:05 by cmckelvy         ###   ########.fr       */
+/*   Updated: 2019/04/09 11:04:58 by cmckelvy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void	assign_coords(char **tets, int numtets, int i)
 	clean_tetstrings(tets);
 	printf("%d\n", minsquare(tmp));
 	board = init_board(numtets, minsquare(tmp));
+	remove_all(tmp, board);
 	solve_board(board, tmp, numtets);
 	clean_tetstructs(tmp);
 }
