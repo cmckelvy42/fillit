@@ -1,23 +1,23 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   board.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cmckelvy <cmckelvy@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/03 15:52:56 by cmckelvy          #+#    #+#             */
-/*   Updated: 2019/04/09 11:13:05 by cmckelvy         ###   ########.fr       */
-/*                                                                            */
+/*                                                                             */
+/*                                                        :::        ::::::::   */
+/*   board.c                                                                             :+:      :+:      :+:   */
+/*                                                     +:+ +:+          +:+       */
+/*   By: cmckelvy <cmckelvy@student.42.fr>          +#+  +:+          +#+        */
+/*                                                +#+#+#+#+#+   +#+          */
+/*   Created: 2019/04/03 15:52:56 by cmckelvy           #+#   #+#              */
+/*   Updated: 2019/04/09 11:13:05 by cmckelvy          ###   ########.fr     */
+/*                                                                             */
 /* ************************************************************************** */
 
 #include "fillit.h"
- 
-int        minsquare(t_etris **tets)
+
+int       minsquare(t_etris **tets)
 {
     int i;
     int j;
     int ret;
- 
+
     i = 0;
     j = 0;
     while (tets[i])
@@ -35,14 +35,14 @@ int        minsquare(t_etris **tets)
     }
     return (ret + 1);
 }
- 
-t_map    *init_board(int numtets, int minsq)
+
+t_map      *init_board(int numtets, int minsq)
 {
     size_t        square;
-    t_map    *ret;
-    int        x;
-    int        y;
- 
+    t_map      *ret;
+    int       x;
+    int       y;
+
     square = (size_t)minsq;
     while (square * square < numtets * 4)
         square++;
@@ -62,11 +62,11 @@ t_map    *init_board(int numtets, int minsq)
     ret->map[y] = NULL;
     return (ret);
 }
- 
-void        place_tet(t_etris *tet, t_map *board, int x, int y)
+
+void              place_tet(t_etris *tet, t_map *board, int x, int y)
 {
     int i;
- 
+
     i = 0;
     while (i < 4)
     {
@@ -76,11 +76,11 @@ void        place_tet(t_etris *tet, t_map *board, int x, int y)
         i++;
     }
 }
- 
-int            can_place(t_etris *tet, t_map *board, int x, int y)
+
+int         can_place(t_etris *tet, t_map *board, int x, int y)
 {
     int i;
- 
+
     i = 0;
     if(is_placed(tet))
         return (0);
@@ -94,13 +94,13 @@ int            can_place(t_etris *tet, t_map *board, int x, int y)
     }
     return (1);
 }
- 
-void        grow_board(t_map *board)
+
+void              grow_board(t_map *board)
 {
-    char    **tmp;
+    char       **tmp;
     int     y;
     int     x;
- 
+
     tmp = board->map;
     board->size += 1;
     board->map = NULL;
@@ -144,19 +144,19 @@ int      find_and_place(t_map *board, t_etris *tet)
     return (0);
 }
 
-void    adv_xy(size_t board_len, size_t *x, size_t *y)
+void       adv_xy(size_t board_len, size_t *x, size_t *y)
 {
 	*y += (++*x / board_len);
 	*x %= board_len;
 }
- 
-int        solve_board(t_map *board, t_etris **tets, int numtets)
+
+int       solve_board(t_map *board, t_etris **tets, int numtets)
 {
     int     i;
     int     j;
     size_t  x;
     size_t  y;
- 
+
     i = 0;
     x = 0;
     j = 0;
@@ -196,7 +196,7 @@ int        solve_board(t_map *board, t_etris **tets, int numtets)
     }
     return (1);
 }
- 
+
 /* need to figure out how to iterate tets while checking if they
 can be placed on coords
 */

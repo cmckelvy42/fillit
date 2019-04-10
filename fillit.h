@@ -6,7 +6,7 @@
 /*   By: cmckelvy <cmckelvy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 14:02:50 by cmckelvy          #+#    #+#             */
-/*   Updated: 2019/04/09 10:17:14 by cmckelvy         ###   ########.fr       */
+/*   Updated: 2019/04/09 20:09:05 by cmckelvy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define FILLED(c)				((c - '#' == 0) ? 1 : -1)
 # define EMPTY(c)				((c - '.' == 0) ? 1 : 0)
 # define CHECK_BAD(x)			if (x) return (0)
-# define CHECK_BAD_VOID(x)			if (x) return 
+# define CHECK_BAD_VOID(x)			if (x) return
 # define VALID_CHAR(c)			((c == '#' || c == '.' || c == '\n') ? 1 : 0)
 
 typedef struct		s_etris
@@ -43,13 +43,14 @@ typedef struct		s_map
 
 
 void				tetread(char *filename);
-size_t				tetsize(int fd);
+size_t				tetsize(int fd, int *numtets);
 int					verify(char **tets, int j);
 void				split_pieces(char **tets, char *str, int i);
-void				pieces(char *str, size_t size);
+void				pieces(char *str, int numtets);
 void				assign_coords(char **tets, int numtets, int i);
 void				clean_tetstrings(char **tets);
 void				clean_tetstructs(t_etris **tets);
+void				clean_board(t_map *board);
 int					minsquare(t_etris **tets);
 t_map				*init_board(int numtets, int minsq);
 void				remove_all(t_etris **tets, t_map *board);

@@ -6,7 +6,7 @@
 /*   By: cmckelvy <cmckelvy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 22:57:39 by cmckelvy          #+#    #+#             */
-/*   Updated: 2019/04/09 11:01:05 by cmckelvy         ###   ########.fr       */
+/*   Updated: 2019/04/09 20:11:26 by cmckelvy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,21 @@ void	clean_tetstructs(t_etris **tets)
 	free(tets);
 	tets = NULL;
 }
+void	clean_board(t_map *board)
+{
+	int i;
 
+	i = -1;
+	while (board->map[++i])
+	{
+		free(board->map[i]);
+		board->map[i] = NULL;
+	}
+	free(board->map);
+	board->map = NULL;
+	free(board);
+	board = NULL;
+}
 void	remove_tet(t_etris *tet, t_map *board)
 {
 	int i;

@@ -6,20 +6,33 @@
 /*   By: cmckelvy <cmckelvy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:04:48 by cmckelvy          #+#    #+#             */
-/*   Updated: 2019/04/09 17:44:10 by cmckelvy         ###   ########.fr       */
+/*   Updated: 2019/04/09 20:00:01 by cmckelvy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-size_t	tetsize(int fd)
+size_t	tetsize(int fd, int *numtets)
 {
 	size_t	i;
-	char	buf;
+	char	buf[1];
+	int		lines;
 
 	i = 0;
+	lines = 0;
+	*numtets = 0;
 	while (read(fd, buf, 1))
+	{
 		i++;
+		if (buf[0] == '\n')
+			lines++;
+		if (lines == 5)
+		{
+			*numtets += 1;
+			lines = 0;
+		}
+	}
+	*numtets += 1;
 	close(fd);
 	return (i);
 }
@@ -76,7 +89,7 @@ void	split_pieces(char **tets, char *str, int i)
 	assign_coords(tets, i, -1);
 }
 
-void	pieces(char *str, size_t size)
+void	pieces(char *str, int numtets)
 {
 	char	**tets;
 	int		f;
@@ -84,8 +97,8 @@ void	pieces(char *str, size_t size)
 
 	j = -1;
 	f = 0;
-	if (!(tets = (char**)malloc(sizeof(char*) * ((size / 20) + 1))) 
-			|| (size / 20) > 26)
+	if (!(tets = (char**)malloc(sizeof(char*) * (numtets + 1)))
+			|| numtets > 26)
 	/*
 	need to replace the above if statement with a way to just check the number of newlines
 	between tets in the file to count instead
@@ -94,7 +107,7 @@ void	pieces(char *str, size_t size)
 		ft_putstr("Error2");
 		return ;
 	}
-	split_pieces(tets, str, size / 20);
+	split_pieces(tets, str, numtets);
 }
 
 void	tetread(char *filename)
@@ -102,6 +115,7 @@ void	tetread(char *filename)
 	int			fd;
 	char		*tfile;
 	size_t		tsize;
+	int			numtets;
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
@@ -109,10 +123,11 @@ void	tetread(char *filename)
 		ft_putstr("Error: invalid file\n");
 		return ;
 	}
-	tsize = tetsize(fd);
-	tfile = (char*)malloc((tsize + 1));
+	tsize = tetsize(fd, &numtets);
+
+	tfile = ft_strnew(tsize);
 	fd = open(filename, O_RDONLY);
 	read(fd, tfile, tsize);
-	pieces(tfile, tsize);
+	pieces(tfile, numtets);
 	free(tfile);
 }
