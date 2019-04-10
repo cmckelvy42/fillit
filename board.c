@@ -6,7 +6,7 @@
 /*   By: cmckelvy <cmckelvy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 11:29:18 by cmckelvy          #+#    #+#             */
-/*   Updated: 2019/04/10 11:38:18 by cmckelvy         ###   ########.fr       */
+/*   Updated: 2019/04/10 12:30:13 by cmckelvy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void		grow_board(t_map *board)
 	while (++y < board->size)
 	{
 		x = -1;
-		CHECK_BAD_VOID(!(board->map[y] = (char*)ft_strnew(board->size)));
+		CHECK_BAD_V(!(board->map[y] = (char*)ft_strnew(board->size)));
 		if (tmp[y])
 		{
 			ft_memcpy(board->map[y], tmp[y], ft_strlen(tmp[y]));
