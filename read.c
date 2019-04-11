@@ -6,7 +6,7 @@
 /*   By: cmckelvy <cmckelvy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 14:04:48 by cmckelvy          #+#    #+#             */
-/*   Updated: 2019/04/10 11:38:44 by cmckelvy         ###   ########.fr       */
+/*   Updated: 2019/04/10 20:31:15 by cmckelvy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,13 @@ size_t	tetsize(int fd, int *numtets)
 	return (i);
 }
 
-int		verify(char **tets, int j)
+int		verify(char **tets, int j, int con, int lines)
 {
 	int		i;
-	int		squares;
-	int		connections;
-	int		lines;
+	int		sq;
 
 	i = -1;
-	lines = 0;
-	squares = 0;
-	connections = 0;
+	sq = 0;
 	while (tets[j][++i])
 	{
 		CHECK_BAD(tets[j][i] != '#' && tets[j][i] != '.' && tets[j][i] != '\n');
@@ -55,19 +51,18 @@ int		verify(char **tets, int j)
 			lines++;
 		if (FILLED(tets[j][i]) == 1)
 		{
-			squares++;
+			sq++;
 			if ((i > 3) && FILLED(tets[j][i - 5]) == 1)
-				connections++;
+				con++;
 			if (FILLED(tets[j][i + 5]) == 1)
-				connections++;
+				con++;
 			if ((i > 0) && FILLED(tets[j][i - 1]) == 1)
-				connections++;
+				con++;
 			if (FILLED(tets[j][i + 1]) == 1)
-				connections++;
+				con++;
 		}
 	}
-	CHECK_BAD(lines != 3 || i != 19 || squares != 4 ||
-		(connections != 8 && connections != 6));
+	CHECK_BAD(lines != 3 || i != 19 || sq != 4 || (con != 8 && con != 6));
 	return (1);
 }
 
@@ -83,7 +78,7 @@ void	split_pieces(char **tets, char *str, int i)
 		tets[j] = ft_strnew(20);
 		tets[j] = ft_strncpy(tets[j], &str[f], 19);
 		tets[j][20] = '\0';
-		if (!verify(tets, j))
+		if (!verify(tets, j, 0, 0))
 		{
 			ft_putstr("error");
 			return ;

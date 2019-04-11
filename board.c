@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmckelvy <cmckelvy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/10 11:29:18 by cmckelvy          #+#    #+#             */
-/*   Updated: 2019/04/10 12:30:13 by cmckelvy         ###   ########.fr       */
+/*   Created: 2019/04/10 20:10:16 by cmckelvy          #+#    #+#             */
+/*   Updated: 2019/04/10 21:04:40 by cmckelvy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ int			minsquare(t_etris **tets)
 
 t_map		*init_board(int numtets, int minsq)
 {
-	size_t	square;
+	int		square;
 	t_map	*ret;
 	int		x;
 	int		y;
 
-	square = (size_t)minsq;
+	square = minsq;
 	while (square * square < numtets * 4)
 		square++;
 	CHECK_BAD(!(ret = (t_map*)malloc(sizeof(t_map))));
@@ -124,8 +124,8 @@ void		grow_board(t_map *board)
 
 int			find_and_place(t_map *board, t_etris *tet)
 {
-	size_t	y;
-	size_t	x;
+	int	y;
+	int	x;
 
 	y = 0;
 	while (y < board->size && !is_placed(tet))
@@ -135,7 +135,7 @@ int			find_and_place(t_map *board, t_etris *tet)
 		{
 			if (can_place(tet, board, x, y))
 			{
-				place_tet(tet, board, (int)x, (int)y);
+				place_tet(tet, board, x, y);
 				return (1);
 			}
 			x++;
@@ -145,18 +145,25 @@ int			find_and_place(t_map *board, t_etris *tet)
 	return (0);
 }
 
-void		adv_xy(size_t board_len, size_t *x, size_t *y)
+void		adv_xy(int board_len, int *x, int *y)
 {
 	*y += (++*x / board_len);
 	*x %= board_len;
+}
+
+void		zero_out(int *i, int *x, int *y)
+{
+	*i = 0;
+	*x = 0;
+	*y = 0;
 }
 
 int			solve_board(t_map *board, t_etris **tets, int numtets)
 {
 	int		i;
 	int		j;
-	size_t	x;
-	size_t	y;
+	int		x;
+	int		y;
 
 	i = 0;
 	x = 0;
@@ -192,7 +199,7 @@ int			solve_board(t_map *board, t_etris **tets, int numtets)
 				grow_board(board);
 			}
 		}
-		place_tet(tets[i], board, (int)x, (int)y);
+		place_tet(tets[i], board, x, y);
 	}
 	return (1);
 }
