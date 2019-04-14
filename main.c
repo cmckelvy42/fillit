@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmckelvy <cmckelvy@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elhampto <elhampto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 13:59:29 by cmckelvy          #+#    #+#             */
-/*   Updated: 2019/04/10 20:38:06 by cmckelvy         ###   ########.fr       */
+/*   Updated: 2019/04/13 19:08:53 by elhampto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int		main(int argc, char *argv[])
 {
-
 	if (argc != 2)
 	{
 		ft_putstr("usage: fillit <file>\n");
