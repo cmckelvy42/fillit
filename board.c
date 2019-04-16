@@ -6,13 +6,13 @@
 /*   By: cmckelvy <cmckelvy@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 20:10:16 by cmckelvy          #+#    #+#             */
-/*   Updated: 2019/04/14 01:18:41 by cmckelvy         ###   ########.fr       */
+/*   Updated: 2019/04/14 23:02:57 by cmckelvy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int			minsquare(t_etris **tets)
+int				minsquare(t_etris **tets)
 {
 	int	i;
 	int	j;
@@ -36,7 +36,7 @@ int			minsquare(t_etris **tets)
 	return (ret + 1);
 }
 
-t_map		*init_board(int numtets, int minsq)
+t_map			*init_board(int numtets, int minsq)
 {
 	int		square;
 	t_map	*ret;
@@ -62,7 +62,7 @@ t_map		*init_board(int numtets, int minsq)
 	return (ret);
 }
 
-void		grow_board(t_map *board)
+static void		grow_board(t_map *board)
 {
 	char	**tmp;
 	int		y;
@@ -90,7 +90,7 @@ void		grow_board(t_map *board)
 	board->map[y] = NULL;
 }
 
-char		print_board(t_map *board, int numtets, int i)
+char			print_board(t_map *board, int numtets, int i)
 {
 	int j;
 
@@ -106,7 +106,7 @@ char		print_board(t_map *board, int numtets, int i)
 	return (1);
 }
 
-int			solve_board(t_map *board, t_etris **tets, int numtets, int i)
+int				solve_board(t_map *board, t_etris **tets, int numtets, int i)
 {
 	int		x;
 	int		y;
